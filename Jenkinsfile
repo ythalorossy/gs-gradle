@@ -6,14 +6,12 @@ node {
   }
   stage('test') {
     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-      sh 'cd complete' 
-      sh './gradlew test'
+      sh 'cd complete && ./gradlew test'
     }
   }
   stage('run') {
     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-      sh 'cd complete'
-      sh './gradlew run'
+      sh 'cd complete && ./gradlew run'
     }
   }
 }
