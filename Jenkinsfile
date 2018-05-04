@@ -1,17 +1,17 @@
 node {
-  def myGradleContainer = docker.image('gradle:jdk8-alpine')
+  def myGradleContainer = docker.image('gradle:jdk8')
   myGradleContainer.pull()
   stage('prep') {
     checkout scm
   }
   stage('test') {
     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-      sh './complete/gradlew test'
+      sh 'cd complete && ./gradlew test'
     }
   }
   stage('run') {
     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-      sh './complete/gradlew run'
+      sh 'cd complete && ./gradlew run'
     }
   }
 }
